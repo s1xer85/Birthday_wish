@@ -3,79 +3,81 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#f8e9ef">
+  <meta name="theme-color" content="#f6c4d9">
   <title>Birthdaywish — For Mariya</title>
   <style>
-    :root { --shadow: 0 14px 35px rgba(72, 29, 54, .20); }
-    * { box-sizing: border-box; }
-    html, body { margin: 0; min-height: 100%; overflow-x: hidden; }
-    body {
-      display: grid; place-items: center; min-height: 100svh;
-      background: radial-gradient(circle at 50% 20%, #fff9f5 0, #f7e6ef 42%, #dfb9cf 100%);
-      font-family: Georgia, "Times New Roman", serif; color: #542c48;
-    }
-    .experience { position: relative; width: min(100vw, calc(100svh * 889 / 1536)); aspect-ratio: 889 / 1536; overflow: hidden; box-shadow: var(--shadow); background: #f8e9ef; }
-    .page { position: absolute; inset: 0; opacity: 0; pointer-events: none; transform: translateX(4%); transition: opacity .55s ease, transform .55s ease; }
-    .page.active { opacity: 1; pointer-events: auto; transform: translateX(0); }
-    .page-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: block; }
-    .hit { position: absolute; z-index: 2; border: 0; padding: 0; background: transparent; cursor: pointer; border-radius: 28%; -webkit-tap-highlight-color: transparent; }
-    .hit:focus-visible { outline: 3px solid rgba(164, 82, 130, .9); outline-offset: 3px; }
-    .gift-hit { left: 31%; top: 43%; width: 52%; height: 31%; }
-    .envelope-hit { left: 23%; top: 40%; width: 62%; height: 30%; }
-    .note-hit { left: 38%; top: 79%; width: 37%; height: 10%; border-radius: 50%; }
-    .yes-hit { left: 60%; top: 49%; width: 27%; height: 12%; border-radius: 50%; }
-    .no-hit { left: 23%; top: 48%; width: 30%; height: 12%; border-radius: 50%; }
-    .next-hit { left: 38%; top: 71%; width: 31%; height: 13%; border-radius: 50%; }
-    .denied { position: absolute; z-index: 3; left: 53.5%; top: 77.1%; transform: translate(-50%, -50%); width: 76%; text-align: center; color: #6b244c; font: 700 clamp(12px, 2.9vw, 25px)/1.15 Georgia, serif; opacity: 0; transition: opacity .35s ease; }
-    .denied.show { opacity: 1; }
-    .final { display: grid; place-items: center; text-align: center; padding: 15%; background: radial-gradient(circle at 50% 28%, #fffdf8 0, #f9e5ee 40%, #d99fbe 100%); }
-    .final::before, .final::after { content: ""; position: absolute; border-radius: 50%; filter: blur(1px); opacity: .55; }
-    .final::before { width: 65%; aspect-ratio: 1; top: -20%; left: -23%; background: #fff3bd; }
-    .final::after { width: 55%; aspect-ratio: 1; bottom: -14%; right: -18%; background: #e9a9cf; }
-    .final-content { position: relative; z-index: 2; animation: rise .9s ease both; }
-    .final h1 { margin: 0 0 6%; font-size: clamp(28px, 8vw, 72px); line-height: 1.05; color: #7d305a; }
-    .final p { margin: 0; font-size: clamp(16px, 4.5vw, 38px); line-height: 1.45; }
-    .replay { margin-top: 12%; border: 1px solid #b96b99; border-radius: 99px; padding: .75em 1.3em; color: #7d305a; background: rgba(255,255,255,.52); font: inherit; cursor: pointer; }
-    .confetti { position: absolute; inset: 0; z-index: 1; overflow: hidden; pointer-events: none; }
-    .piece { position: absolute; top: -8%; width: 10px; height: 18px; border-radius: 3px; animation: fall var(--dur) linear var(--delay) infinite; transform: rotate(var(--rot)); }
-    @keyframes fall { to { top: 110%; transform: translateX(var(--drift)) rotate(calc(var(--rot) + 540deg)); } }
-    @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
-    @media (min-width: 700px) { .experience { border-radius: 18px; } }
-    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+    :root { --pink:#f6c4d9; --deep:#7f315b; --white:rgba(255,255,255,.9); }
+    * { box-sizing:border-box; }
+    html,body { margin:0; min-height:100%; overflow:hidden; }
+    body { min-height:100svh; display:grid; place-items:center; background:linear-gradient(135deg,#f8d3e2,#e9a8c5 50%,#f8ddea); font-family:Georgia,"Times New Roman",serif; color:var(--deep); }
+    .loading { position:fixed; inset:0; z-index:20; display:grid; place-items:center; background:linear-gradient(135deg,#f8d3e2,#e9a8c5); transition:opacity .45s ease,visibility .45s ease; }
+    .loading.done { opacity:0; visibility:hidden; pointer-events:none; }
+    .loading-card { width:min(86vw,360px); padding:32px 24px; border-radius:28px; text-align:center; color:#76284f; background:rgba(255,255,255,.72); box-shadow:0 18px 50px rgba(100,35,75,.2); }
+    .loader { width:46px; height:46px; margin:0 auto 18px; border:5px solid rgba(127,49,91,.18); border-top-color:var(--deep); border-radius:50%; animation:spin 1s linear infinite; }
+    .loading-title { margin:0 0 8px; font-size:clamp(21px,6vw,30px); }
+    .loading-message { margin:0; font-size:clamp(14px,4vw,18px); }
+    .experience { position:relative; width:min(100vw,calc(100svh * 889 / 1536)); aspect-ratio:889 / 1536; overflow:hidden; background:#f8d3e2; box-shadow:0 18px 50px rgba(83,27,61,.28); }
+    .page { position:absolute; inset:0; visibility:hidden; opacity:0; pointer-events:none; transform:translateX(5%); transition:opacity .45s ease,transform .45s ease,visibility 0s linear .45s; }
+    .page.active { visibility:visible; opacity:1; pointer-events:auto; transform:none; transition-delay:0s; }
+    .page-image { position:absolute; inset:0; width:100%; height:100%; display:block; object-fit:contain; }
+    .hit { position:absolute; z-index:3; display:grid; place-items:center; border:2px solid rgba(255,255,255,.85); border-radius:999px; padding:0 14px; color:#6c2149; background:rgba(255,235,244,.82); box-shadow:0 5px 14px rgba(94,26,65,.2); font:700 clamp(13px,3.5vw,22px) Georgia,serif; cursor:pointer; transition:transform .16s ease,background .16s ease,box-shadow .16s ease; -webkit-tap-highlight-color:transparent; }
+    .hit:hover,.hit:focus-visible { background:#fff; box-shadow:0 7px 18px rgba(94,26,65,.3); outline:none; transform:translateY(-2px) scale(1.03); }
+    .hit:active { transform:scale(.96); }
+    .big-hit { border-color:transparent; background:rgba(255,255,255,.04); box-shadow:none; color:transparent; }
+    .big-hit:hover,.big-hit:focus-visible { background:rgba(255,255,255,.16); box-shadow:inset 0 0 0 3px rgba(255,255,255,.55); }
+    .gift-hit { left:27%; top:39%; width:61%; height:37%; }
+    .envelope-hit { left:18%; top:38%; width:69%; height:35%; }
+    .note-hit { left:38%; top:79%; width:34%; height:9%; }
+    .yes-hit { left:60%; top:49%; width:28%; height:11%; }
+    .no-hit { left:22%; top:48%; width:31%; height:11%; }
+    .next-hit { left:37%; top:71%; width:33%; height:12%; }
+    .denied { position:absolute; z-index:4; left:53.5%; top:77.1%; width:78%; margin:0; transform:translate(-50%,-50%); padding:8px 12px; border-radius:14px; text-align:center; color:#6b244c; background:rgba(255,245,249,.9); box-shadow:0 4px 12px rgba(94,26,65,.15); font:700 clamp(13px,3.8vw,25px)/1.15 Georgia,serif; opacity:0; pointer-events:none; transition:opacity .2s ease; }
+    .denied.show { opacity:1; }
+    .final { display:grid; place-items:center; padding:14%; text-align:center; background:linear-gradient(145deg,#f9d8e6,#f1b6cf 48%,#f9dbe8); }
+    .final-content { position:relative; z-index:2; padding:10% 6%; border:2px solid rgba(255,255,255,.6); border-radius:30px; background:rgba(255,255,255,.36); box-shadow:0 16px 34px rgba(112,36,79,.16); animation:rise .8s ease both; }
+    .final h1 { margin:0 0 20px; font-size:clamp(27px,8vw,68px); line-height:1.08; color:#7d305a; }
+    .final p { margin:0; font-size:clamp(16px,4.5vw,35px); line-height:1.45; }
+    .replay { margin-top:28px; min-height:48px; border:2px solid #fff; border-radius:999px; padding:0 24px; color:#7d305a; background:#fff0f6; font:700 clamp(15px,4vw,21px) Georgia,serif; cursor:pointer; }
+    .replay:hover,.replay:focus-visible { background:#fff; outline:none; }
+    .confetti { position:absolute; inset:0; z-index:1; overflow:hidden; pointer-events:none; }
+    .piece { position:absolute; top:-8%; width:9px; height:18px; border-radius:3px; animation:fall var(--dur) linear var(--delay) infinite; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+    @keyframes rise { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:none; } }
+    @keyframes fall { to { top:110%; transform:translateX(var(--drift)) rotate(540deg); } }
+    @media (min-width:700px) { .experience { border-radius:20px; } }
+    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:.01ms!important; transition-duration:.01ms!important; } }
   </style>
 </head>
 <body>
+  <div class="loading" id="loading" role="status" aria-live="polite">
+    <div class="loading-card"><div class="loader"></div><h1 class="loading-title">Loading your birthday wish</h1><p class="loading-message" id="loading-message">Please wait a moment…</p></div>
+  </div>
   <main class="experience" aria-label="Interactive birthday wish">
-    <section class="page active" data-page="1"><img class="page-image" src="pics/page1.jpg" alt="Birthday gift box"><button class="hit gift-hit" aria-label="Open the gift box"></button></section>
-    <section class="page" data-page="2"><img class="page-image" src="pics/page2.jpg" alt="Birthday envelope"><button class="hit envelope-hit" aria-label="Open the envelope"></button></section>
-    <section class="page" data-page="3"><img class="page-image" src="pics/page3.jpg" alt="Open birthday note"><button class="hit note-hit" aria-label="Continue"></button></section>
-    <section class="page" data-page="4"><img class="page-image" src="pics/page4.jpg" alt="Best friend question"><button class="hit yes-hit" aria-label="Yes"></button><button class="hit no-hit" aria-label="No"></button><p class="denied">Try clicking yes 😊</p></section>
-    <section class="page" data-page="5"><img class="page-image" src="pics/page5.jpg" alt="Last birthday wish"><button class="hit next-hit" aria-label="Next"></button></section>
-    <section class="page final" data-page="6"><div class="confetti" aria-hidden="true"></div><div class="final-content"><h1>Happy Birthday, Mariya! 🎂💗</h1><p>Stay happy. Stay blessed.<br>Keep shining ✨</p><button class="replay">Replay</button></div></section>
+    <section class="page active" data-page="1"><img class="page-image" src="pics/page1.jpg" alt="Birthday gift box"><button class="hit big-hit gift-hit" aria-label="Open the gift box">Open</button></section>
+    <section class="page" data-page="2"><img class="page-image" src="pics/page2.jpg" alt="Birthday envelope"><button class="hit big-hit envelope-hit" aria-label="Open the envelope">Open</button></section>
+    <section class="page" data-page="3"><img class="page-image" src="pics/page3.jpg" alt="Open birthday note"><button class="hit note-hit" aria-label="Continue">Next</button></section>
+    <section class="page" data-page="4"><img class="page-image" src="pics/page4.jpg" alt="Best friend question"><button class="hit yes-hit" aria-label="Yes">YES 💗</button><button class="hit no-hit" aria-label="No">NO</button><p class="denied" aria-live="polite">accece denied fool🤣</p></section>
+    <section class="page" data-page="5"><img class="page-image" src="pics/page5.png" alt="Last birthday wish"><button class="hit next-hit" aria-label="Next">Next</button></section>
+    <section class="page final" data-page="6"><img class="page-image" src="pics/page6.png" alt="Final birthday celebration"><div class="confetti" aria-hidden="true"></div><div class="final-content"><h1>Happy Birthday, Mariya! 🎂💗</h1><p>Stay happy. Stay blessed.<br>Keep shining, always. ✨🌸</p><button class="replay" type="button">Replay</button></div></section>
   </main>
   <script>
     (() => {
-      const pages = [...document.querySelectorAll('.page')];
-      const show = n => pages.forEach((page, i) => page.classList.toggle('active', i === n - 1));
-      document.querySelector('.gift-hit').addEventListener('click', () => show(2));
-      document.querySelector('.envelope-hit').addEventListener('click', () => show(3));
-      document.querySelector('.note-hit').addEventListener('click', () => show(4));
-      document.querySelector('.yes-hit').addEventListener('click', () => show(5));
-      document.querySelector('.no-hit').addEventListener('click', () => document.querySelector('.denied').classList.add('show'));
-      document.querySelector('.next-hit').addEventListener('click', () => { show(6); makeConfetti(); });
-      document.querySelector('.replay').addEventListener('click', () => { document.querySelector('.denied').classList.remove('show'); show(1); });
-      function makeConfetti() {
-        const box = document.querySelector('.confetti');
-        if (box.children.length) return;
-        const colors = ['#c75d91', '#f4c96b', '#9bb7d4', '#e88a8a', '#fff4d0'];
-        for (let i = 0; i < 52; i++) {
-          const piece = document.createElement('i'); piece.className = 'piece';
-          piece.style.left = `${Math.random() * 100}%`; piece.style.background = colors[i % colors.length];
-          piece.style.setProperty('--dur', `${4 + Math.random() * 5}s`); piece.style.setProperty('--delay', `${Math.random() * 3}s`);
-          piece.style.setProperty('--rot', `${Math.random() * 360}deg`); piece.style.setProperty('--drift', `${-80 + Math.random() * 160}px`);
-          box.appendChild(piece);
-        }
-      }
+      const pages=[...document.querySelectorAll('.page')];
+      const loading=document.getElementById('loading');
+      const message=document.getElementById('loading-message');
+      const assets=['pics/page1.jpg','pics/page2.jpg','pics/page3.jpg','pics/page4.jpg','pics/page5.png','pics/page6.png'];
+      let loaded=0;
+      const finish=()=>{ loaded++; message.textContent=`Loading images… ${Math.round(loaded/assets.length*100)}%`; if(loaded===assets.length) setTimeout(()=>loading.classList.add('done'),350); };
+      assets.forEach(src=>{ const image=new Image(); image.onload=finish; image.onerror=finish; image.src=src; });
+      const show=n=>pages.forEach((page,i)=>page.classList.toggle('active',i===n-1));
+      document.querySelector('.gift-hit').addEventListener('click',()=>show(2));
+      document.querySelector('.envelope-hit').addEventListener('click',()=>show(3));
+      document.querySelector('.note-hit').addEventListener('click',()=>show(4));
+      document.querySelector('.yes-hit').addEventListener('click',()=>show(5));
+      document.querySelector('.no-hit').addEventListener('click',()=>document.querySelector('.denied').classList.add('show'));
+      document.querySelector('.next-hit').addEventListener('click',()=>{show(6);makeConfetti();});
+      document.querySelector('.replay').addEventListener('click',()=>{document.querySelector('.denied').classList.remove('show');show(1);});
+      function makeConfetti(){const box=document.querySelector('.confetti');if(box.children.length)return;const colors=['#c75d91','#f4c96b','#9bb7d4','#e88a8a','#fff4d0'];for(let i=0;i<52;i++){const piece=document.createElement('i');piece.className='piece';piece.style.left=`${Math.random()*100}%`;piece.style.background=colors[i%colors.length];piece.style.setProperty('--dur',`${4+Math.random()*5}s`);piece.style.setProperty('--delay',`${Math.random()*3}s`);piece.style.setProperty('--drift',`${-80+Math.random()*160}px`);box.appendChild(piece);}}
     })();
   </script>
 </body>
